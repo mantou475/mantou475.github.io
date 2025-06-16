@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>&lt;model-viewer&gt; template</title>
+    <meta charset="utf-8">
+    <meta name="description" content="&lt;model-viewer&gt; template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./styles.css" type="text/css" />
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  </head>
+  <body>
+    <model-viewer
+      id="gear"
+      src="wildbandanimation2.glb"
+      ar
+      ar-modes="webxr scene-viewer quick-look"
+      camera-controls
+      tone-mapping="neutral"
+      poster="poster.png"
+      shadow-intensity="1"
+      camera-orbit="-67.79deg 45.2deg 0.1125m"
+      field-of-view="26.26deg"
+      auto-rotate
+    >
+      <!-- Hotspots -->
+      <button
+        class="Hotspot"
+        slot="hotspot-5"
+        data-surface="0 2 7536 7537 7538 0.587 0.315 0.098"
+        data-visibility-attribute="visible"
+        onmouseover="addhotspot1()"
+        onmouseout="removehotspot1()"
+      >
+        <div class="HotspotAnnotation" id="hotspot1" style="visibility:hidden">case</div>
+      </button>
+
+      <button
+        class="Hotspot"
+        slot="hotspot-6"
+        data-surface="1 0 1191 1192 1193 0.011 0.949 0.040"
+        data-visibility-attribute="visible"
+        onmouseover="addhotspot2()"
+        onmouseout="removehotspot2()"
+      >
+        <div class="HotspotAnnotation" id="hotspot2" style="visibility:hidden">strap</div>
+      </button>
+
+      <button
+        class="Hotspot"
+        slot="hotspot-7"
+        data-surface="2 0 466 560 569 0.117 0.220 0.663"
+        data-visibility-attribute="visible"
+        onmouseover="addhotspot3()"
+        onmouseout="removehotspot3()"
+      >
+        <div class="HotspotAnnotation" id="hotspot3" style="visibility:hidden">watch</div>
+      </button>
+
+      <!-- Progress & AR -->
+      <div class="progress-bar hide" slot="progress-bar">
+        <div class="update-bar"></div>
+      </div>
+      <button slot="ar-button" id="ar-button">View in your space</button>
+      <div id="ar-prompt"><img src="ar_hand_prompt.png" /></div>
+    </model-viewer>
+
+    <!-- Controls -->
+    <div class="controls" style="position:absolute; bottom:0; left:200px">
+      <div>Animation:
+        <button id="default1Btn" onclick="playAnimation('CubeAnimation')">Play Animation 01</button>
+        <button onclick="pauseAnimation()">Pause Animation</button>
+      </div>
+      <div style="position:absolute; bottom:0; right:0">
+        <button onclick="setOrbit('-391.2deg 96.57deg 0.1225m')">Front</button>
+        <button onclick="setOrbit('-388.9deg 8.912deg 0.1003m')">Top</button>
+        <button onclick="setOrbit('-222.5deg 170.6deg 0.1225m')">Bottom</button>
+      </div>
+      <div>Variant:
+        <button onclick="setVariant('v1')">01</button>
+        <button onclick="setVariant('v2')">02</button>
+      </div>
+    </div>
+
+    <script>
+      const gear = document.getElementById('gear');
+
+      // Variant control
+      function setVariant(name) {
+        gear.variantName = name;
+      }
+
+      // Camera orbit control
+      function setOrbit(orbit) {
+        gear.cameraOrbit = orbit;
+      }
+
+      // Animation control
+      function playAnimation(blackAction) {
+        gear.pause();
+        gear.animationName = blackAction;
+        gear.play();
+      }
+      function pauseAnimation() {
+        gear.pause();
+      }
+
+      // Hotspot annotations
+      function addhotspot1() { document.getElementById('hotspot1').style.visibility = 'visible'; }
+      function removehotspot1() { document.getElementById('hotspot1').style.visibility = 'hidden'; }
+      function addhotspot2() { document.getElementById('hotspot2').style.visibility = 'visible'; }
+      function removehotspot2() { document.getElementById('hotspot2').style.visibility = 'hidden'; }
+      function addhotspot3() { document.getElementById('hotspot3').style.visibility = 'visible'; }
+      function removehotspot3() { document.getElementById('hotspot3').style.visibility = 'hidden'; }
+    </script>
+  </body>
+</html>
